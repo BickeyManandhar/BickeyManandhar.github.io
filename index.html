@@ -426,6 +426,30 @@
         text-align: right;
         color: var(--fg);
       }
+      .journey {
+        margin: 0 0 40px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        padding: 8px 10px 0;
+        max-width: 100%;
+      }
+      .journey svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .journey text {
+        font: 12px var(--mono);
+        fill: var(--muted);
+      }
+      .journey .fp {
+        fill: var(--accent);
+        transition: opacity 0.35s;
+      }
+      .journey .fp.now {
+        filter: drop-shadow(0 0 4px var(--accent));
+      }
       .side {
         display: grid;
         gap: 18px;
@@ -606,6 +630,40 @@
       }
       .rel ul li::marker {
         color: var(--accent);
+      }
+      .rel ul.wins {
+        list-style: none;
+        padding: 0;
+        gap: 14px;
+      }
+      .wins li {
+        display: grid;
+        gap: 4px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+      .wins .impact {
+        font: 600 16.5px/1.4 var(--body);
+        color: var(--fg);
+      }
+      .wins .impact::before {
+        content: "impact  ";
+        font: 500 11px var(--mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ok);
+        margin-right: 6px;
+        vertical-align: 1px;
+      }
+      .wins .proof {
+        font: 12px var(--mono);
+        color: var(--event);
+      }
+      .wins .how {
+        font-size: 15px;
+        color: var(--muted);
       }
       .stack {
         display: flex;
@@ -950,6 +1008,52 @@
             <span class="svc-name">about-service <i>● healthy</i></span>
             <h2>From Nepal to New York to Columbus.</h2>
           </div>
+          <figure class="journey" aria-label="Animated footsteps walking from Nepal to the United States">
+            <svg viewBox="0 30 1000 150" role="img" aria-hidden="true">
+              <g transform="translate(30,48)">
+                <path
+                  d="M2 2 L64 44 L22 44 L64 92 L2 92 Z"
+                  fill="#DC143C"
+                  stroke="#003893"
+                  stroke-width="4"
+                  stroke-linejoin="round"
+                />
+                <path d="M12 28 a9 9 0 0 0 18 0 a9 7 0 0 1 -18 0 Z" fill="#fff" />
+                <circle cx="21" cy="25" r="3.2" fill="#fff" />
+                <g transform="translate(21,72)" fill="#fff">
+                  <circle r="6" />
+                  <path
+                    id="sunrays"
+                    d="M0-11 2-6 6-9.5 6-4.5 11-4 7.5 0 11 4 6 4.5 6 9.5 2 6 0 11-2 6-6 9.5-6 4.5-11 4-7.5 0-11-4-6-4.5-6-9.5-2-6Z"
+                  />
+                </g>
+              </g>
+              <g transform="translate(860,58)">
+                <rect width="112" height="72" fill="#B22234" rx="1" />
+                <g fill="#fff">
+                  <rect y="5.5" width="112" height="5.5" />
+                  <rect y="16.6" width="112" height="5.5" />
+                  <rect y="27.7" width="112" height="5.5" />
+                  <rect y="38.8" width="112" height="5.5" />
+                  <rect y="49.9" width="112" height="5.5" />
+                  <rect y="61" width="112" height="5.5" />
+                </g>
+                <rect width="46" height="38.8" fill="#3C3B6E" />
+                <g fill="#fff" id="stars"></g>
+              </g>
+              <path
+                id="jpath"
+                d="M 120 100 C 184 45 284 40 311 88 C 335 128 251 140 266 108 C 280 76 393 58 457 96 C 517 132 590 140 627 112 C 663 84 598 58 570 82 C 543 106 685 126 740 106 C 780 92 809 94 842 98"
+                fill="none"
+                stroke="var(--line)"
+                stroke-width="1.5"
+                stroke-dasharray="3 6"
+              />
+              <g id="steps"></g>
+              <text x="63" y="168" text-anchor="middle">Nepal</text>
+              <text x="916" y="168" text-anchor="middle">United States</text>
+            </svg>
+          </figure>
           <div class="about">
             <div>
               <p>
@@ -1037,37 +1141,56 @@
                 </div>
                 <h3>Software Engineer</h3>
                 <p class="org">JPMorgan Chase · Columbus, OH</p>
-                <ul>
+                <ul class="wins">
                   <li>
-                    Reduced database load on high-traffic APIs, confirmed with before-and-after load tests, by
-                    taking ElastiCache Redis caching from proof of concept to production, caching DTOs instead
-                    of JPA entities, and adding a fail-open error handler so a cache outage never fails a
-                    request.
+                    <span class="impact">Reduced database load on high-traffic APIs</span>
+                    <span class="proof">confirmed with before-and-after load tests</span
+                    ><span class="how"
+                      >by taking ElastiCache Redis caching from proof of concept to production, caching DTOs
+                      instead of JPA entities, and adding a fail-open error handler so a cache outage never
+                      fails a request.</span
+                    >
                   </li>
                   <li>
-                    Made the platform survive a regional outage without manual intervention by building
-                    Lambda-based failover across us-east-1 and us-east-2, using Route 53 weighted routing,
-                    health monitoring and region-aware logic tied to Aurora Global Database.
+                    <span class="impact">Kept the platform available through a regional outage</span>
+                    <span class="proof">with failover that needs no manual steps</span
+                    ><span class="how"
+                      >by building Lambda-based failover across us-east-1 and us-east-2 using Route 53
+                      weighted routing, health monitoring, and region-aware logic tied to Aurora Global
+                      Database.</span
+                    >
                   </li>
                   <li>
-                    Opened platform data to analytics and downstream teams by building an event-driven
-                    publication pipeline: Avro-typed Kafka events, Flink jobs that land source, trusted and
-                    error tables in an S3/Glue data lake, and an hourly load into Snowflake, with every event
-                    traceable as delivered or failed.
+                    <span class="impact">Opened platform data to analytics and downstream teams</span>
+                    <span class="proof">with every event traceable as delivered or failed</span
+                    ><span class="how"
+                      >by building an event-driven publication pipeline: Avro-typed Kafka events, Flink jobs
+                      that land source, trusted and error tables in an S3/Glue data lake, and an hourly load
+                      into Snowflake.</span
+                    >
                   </li>
                   <li>
-                    Kept production databases lean and within retention policy by building scheduled Lambda
-                    jobs that purge expired Aurora PostgreSQL data safely across foreign-key relationships and
-                    report deleted row counts through SNS.
+                    <span class="impact">Kept production databases lean and within retention policy</span>
+                    <span class="proof">with deletions reported automatically</span
+                    ><span class="how"
+                      >by building scheduled Lambda jobs that purge expired Aurora PostgreSQL data safely
+                      across foreign-key relationships and publish deleted row counts through SNS.</span
+                    >
                   </li>
                   <li>
-                    Replaced manual partner file exchanges with an automated, secure transfer flow by building
-                    a Java Lambda on Apache MINA SSHD that integrates with the firm's managed file transfer
-                    service.
+                    <span class="impact"
+                      >Replaced manual partner file exchanges with an automated, secure flow</span
+                    ><span class="how"
+                      >by building a Java Lambda on Apache MINA SSHD that integrates with the firm's managed
+                      file transfer service.</span
+                    >
                   </li>
                   <li>
-                    Restored event processing during a production incident by tracing serialization failures
-                    to an Avro schema re-registration issue in Schema Registry and correcting it.
+                    <span class="impact">Restored event processing during a production incident</span
+                    ><span class="how"
+                      >by tracing serialization failures to an Avro schema re-registration issue in Schema
+                      Registry and correcting it.</span
+                    >
                   </li>
                 </ul>
                 <div class="stack">
@@ -1642,6 +1765,60 @@
               });
           }),
         );
+
+        // journey footsteps
+        (function () {
+          const stars = document.getElementById("stars");
+          for (let r = 0; r < 5; r++)
+            for (let c = 0; c < 6; c++) {
+              const d = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              d.setAttribute("cx", 4 + c * 7.6 + (r % 2 ? 3.8 : 0));
+              d.setAttribute("cy", 4.2 + r * 7.6);
+              d.setAttribute("r", 1.3);
+              if (!(r % 2 && c === 5)) stars.appendChild(d);
+            }
+          const path = document.getElementById("jpath"),
+            g = document.getElementById("steps"),
+            NS = "http://www.w3.org/2000/svg";
+          const svgEl = path.ownerSVGElement,
+            scale = (svgEl.clientWidth || 1000) / 1000,
+            k = Math.max(1.3, 0.7 / scale);
+          const L = path.getTotalLength(),
+            gap = 15 * k,
+            steps = [];
+          for (let i = 0, s = 10; s < L - 6; i++, s += gap) {
+            const p = path.getPointAtLength(s),
+              q = path.getPointAtLength(Math.min(s + 1, L));
+            const ang = Math.atan2(q.y - p.y, q.x - p.x),
+              side = i % 2 ? 1 : -1;
+            const x = p.x + Math.cos(ang + Math.PI / 2) * 4.5 * k * side,
+              y = p.y + Math.sin(ang + Math.PI / 2) * 4.5 * k * side;
+            const f = document.createElementNS(NS, "g");
+            f.setAttribute("class", "fp");
+            f.setAttribute(
+              "transform",
+              `translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${((ang * 180) / Math.PI + 90).toFixed(1)}) scale(${(side * k).toFixed(2)},${k.toFixed(2)})`,
+            );
+            f.innerHTML =
+              '<ellipse cx="0" cy="1.5" rx="2.6" ry="3.9"/><circle cx="-1.7" cy="-3.9" r="1"/><circle cx=".2" cy="-4.7" r="1"/><circle cx="2" cy="-3.9" r=".9"/>';
+            f.style.opacity = reduce ? 0.9 : 0;
+            g.appendChild(f);
+            steps.push(f);
+          }
+          if (reduce) return;
+          let head = 0;
+          setInterval(() => {
+            head++;
+            if (head > steps.length + 10) {
+              head = 0;
+            }
+            steps.forEach((f, i) => {
+              const on = i < head;
+              f.style.opacity = on ? (head - i <= 4 ? 1 : 0.6) : 0;
+              f.classList.toggle("now", on && head - i <= 2);
+            });
+          }, 160);
+        })();
 
         // command palette
         const cmds = [

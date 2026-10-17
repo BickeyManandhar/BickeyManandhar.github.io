@@ -1039,31 +1039,42 @@
                 <p class="org">JPMorgan Chase · Columbus, OH</p>
                 <ul>
                   <li>
-                    Build and run a platform of 21 Spring Boot microservices on AWS ECS, backed by Aurora
-                    PostgreSQL.
+                    Reduced database load on high-traffic APIs, confirmed with before-and-after load tests, by
+                    taking ElastiCache Redis caching from proof of concept to production, caching DTOs instead
+                    of JPA entities, and adding a fail-open error handler so a cache outage never fails a
+                    request.
                   </li>
                   <li>
-                    Work on multi-region resilience across us-east-1 and us-east-2, including
-                    disaster-recovery design.
+                    Made the platform survive a regional outage without manual intervention by building
+                    Lambda-based failover across us-east-1 and us-east-2, using Route 53 weighted routing,
+                    health monitoring and region-aware logic tied to Aurora Global Database.
                   </li>
                   <li>
-                    Develop Kafka event flows with Avro schemas and Schema Registry, plus Redis/ElastiCache
-                    caching.
+                    Opened platform data to analytics and downstream teams by building an event-driven
+                    publication pipeline: Avro-typed Kafka events, Flink jobs that land source, trusted and
+                    error tables in an S3/Glue data lake, and an hourly load into Snowflake, with every event
+                    traceable as delivered or failed.
                   </li>
                   <li>
-                    Built a data publication pipeline: services publish events to Kafka, a Flink streaming job
-                    writes them into an S3/Glue data lake, and an hourly sync loads them into Snowflake, where
-                    a matching read-only view serves downstream consumers.
+                    Kept production databases lean and within retention policy by building scheduled Lambda
+                    jobs that purge expired Aurora PostgreSQL data safely across foreign-key relationships and
+                    report deleted row counts through SNS.
                   </li>
                   <li>
-                    Ship infrastructure as code with Terraform and deliver through Jenkins and Spinnaker
-                    pipelines.
+                    Replaced manual partner file exchanges with an automated, secure transfer flow by building
+                    a Java Lambda on Apache MINA SSHD that integrates with the firm's managed file transfer
+                    service.
+                  </li>
+                  <li>
+                    Restored event processing during a production incident by tracing serialization failures
+                    to an Avro schema re-registration issue in Schema Registry and correcting it.
                   </li>
                 </ul>
                 <div class="stack">
                   <span>Java</span><span>Spring Boot</span><span>AWS ECS</span><span>Aurora PostgreSQL</span
                   ><span>DynamoDB</span><span>Kafka</span><span>Flink</span><span>Snowflake</span
-                  ><span>ElastiCache</span><span>Terraform</span><span>Spinnaker</span>
+                  ><span>ElastiCache</span><span>Lambda</span><span>Route 53</span><span>Terraform</span
+                  ><span>Spinnaker</span>
                 </div>
               </div>
             </article>
